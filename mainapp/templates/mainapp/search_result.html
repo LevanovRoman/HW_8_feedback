@@ -1,0 +1,38 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+<style>
+       .norm{
+       margin-left: 50px;
+       font-size:18px;
+       text-decoration: none;}
+      .blue {color: #1c87c9;
+      font-size: 22px;}
+    </style>
+<ul>
+    {% for p in posts %}
+    <li><h3>{{p.firstname}}</h3>
+    <p>{{p.patronymic}}</p>
+    <p>{{p.lastname}}</p>
+    <p>{{p.city}}</p>
+    </li>
+    <hr>
+    {% endfor %}
+</ul>
+<nav class="list-pages">
+    <span><b>Пример пагинации : </span>
+    {% if page_obj.has_previous %}
+         <a class="norm" href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+{% endif %}
+        {% for p in paginator.page_range %}
+            {% if page_obj.number == p %}
+        <a class="norm blue" href="?page={{ p }}">{{ p }}</a>
+                   {% else %}
+            <a class="norm" href="?page={{ p }}">{{ p }}</a>
+                   {% endif %}
+        {% endfor %}
+    {% if page_obj.has_next %}
+
+         <a class="norm" href="?page={{ page_obj.next_page_number }}">&gt;</a>
+    {% endif %}
+</nav>
+{% endblock %}
